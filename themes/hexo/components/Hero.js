@@ -22,6 +22,9 @@ const Hero = props => {
   }
 
   const GREETING_WORDS = siteConfig('GREETING_WORDS').split(',')
+  const bannerImage = siteConfig('HOME_BANNER_IMAGE') || siteInfo?.pageCover
+  const fallbackBanner = siteInfo?.pageCover
+
   useEffect(() => {
     updateHeaderHeight()
 
@@ -90,7 +93,8 @@ const Hero = props => {
       <LazyImage
         id='header-cover'
         alt={siteInfo?.title}
-        src={siteInfo?.pageCover}
+        src={bannerImage}
+        placeholderSrc={fallbackBanner}
         className={`header-cover w-full h-screen object-cover object-center ${siteConfig('HEXO_HOME_NAV_BACKGROUND_IMG_FIXED', null, CONFIG) ? 'fixed' : ''}`}
       />
     </header>
