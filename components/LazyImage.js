@@ -24,8 +24,10 @@ export default function LazyImage({
   const maxWidth = siteConfig('IMAGE_COMPRESS_WIDTH')
   const defaultPlaceholderSrc = siteConfig('IMG_LAZY_LOAD_PLACEHOLDER')
   const imageRef = useRef(null)
+  const initialSrc =
+    (priority && src) || placeholderSrc || src || defaultPlaceholderSrc
   const [currentSrc, setCurrentSrc] = useState(
-    placeholderSrc || defaultPlaceholderSrc
+    initialSrc
   )
 
   /**
@@ -139,7 +141,7 @@ export default function LazyImage({
     alt: alt || 'Lazy loaded image',
     onLoad: handleThumbnailLoaded,
     onError: handleImageError,
-    className: `${className || ''} lazy-image-placeholder`,
+    className: `${className || ''}${currentSrc === src ? '' : ' lazy-image-placeholder'}`,
     style,
     width: width || 'auto',
     height: height || 'auto',
